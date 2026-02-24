@@ -38,6 +38,7 @@ pub fn emit_dispatch(result : ScanResult) -> String {
   )
 }
 
+///|
 fn build_request_variant_lines(handlers : Array[HandlerInfo]) -> String {
   let buf = StringBuilder::new()
   for h in handlers {
@@ -46,6 +47,7 @@ fn build_request_variant_lines(handlers : Array[HandlerInfo]) -> String {
   buf.to_string()
 }
 
+///|
 fn build_response_struct_lines(handlers : Array[HandlerInfo]) -> String {
   let buf = StringBuilder::new()
   for h in handlers {
@@ -60,6 +62,7 @@ fn build_response_struct_lines(handlers : Array[HandlerInfo]) -> String {
   buf.to_string()
 }
 
+///|
 fn build_response_variant_lines(handlers : Array[HandlerInfo]) -> String {
   let buf = StringBuilder::new()
   for h in handlers {
@@ -70,6 +73,7 @@ fn build_response_variant_lines(handlers : Array[HandlerInfo]) -> String {
   buf.to_string()
 }
 
+///|
 fn build_dispatch_arm_lines(handlers : Array[HandlerInfo]) -> String {
   let buf = StringBuilder::new()
   for h in handlers {
