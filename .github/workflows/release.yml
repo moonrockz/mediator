@@ -34,7 +34,7 @@ jobs:
         run: moon check
 
       - name: Run tests
-        run: mise run test:unit
+        run: moon test
 
   publish:
     needs: validate
