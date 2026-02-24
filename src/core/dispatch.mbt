@@ -1,12 +1,13 @@
 ///|
 /// Mediator facade: holds the generated dispatch function and optional middleware.
-/// Consumers build a Mediator with the generated dispatch and send requests through it.
+/// Build with Mediator::new(dispatch_fn) and optionally with_middleware; then call send to run the pipeline.
 pub struct Mediator[Req, Res] {
   dispatch_fn : (Req) -> Res
   middleware : Array[Middleware[Req, Res]]
 }
 
 ///|
+/// Create a mediator that uses the given dispatch (from generated code). Add middleware with with_middleware before calling send.
 pub fn[Req, Res] Mediator::new(
   dispatch_fn : (Req) -> Res,
 ) -> Mediator[Req, Res] {
@@ -14,6 +15,7 @@ pub fn[Req, Res] Mediator::new(
 }
 
 ///|
+/// Add middleware (before/after/finally). Returns a new Mediator; chain with send.
 pub fn[Req, Res] Mediator::with_middleware(
   self : Mediator[Req, Res],
   middleware : Array[Middleware[Req, Res]],
