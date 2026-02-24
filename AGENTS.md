@@ -91,6 +91,8 @@ Scopes: `core`, `codegen`, `cmd`, `docs`, `examples`, `build`, `ci`.
 
 Tasks are **file-based** in `mise-tasks/`. Use `mise run <task>`. A script named `_default` in a subdirectory is the catch-all for that namespace (e.g. `mise run gen` runs `gen/_default`).
 
+**New task files must be executable** or mise will not discover them (CI will fail with "no task … found"). Before committing: `chmod +x mise-tasks/**/*` or `git add --chmod=+x mise-tasks/path/to/task`.
+
 | Task                  | Purpose                                      |
 |-----------------------|----------------------------------------------|
 | `test:unit`           | Run `moon test`                              |
