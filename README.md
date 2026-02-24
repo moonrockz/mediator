@@ -1,5 +1,7 @@
 # mediator
 
+[![CI](https://github.com/moonrockz/mediator/actions/workflows/ci.yml/badge.svg)](https://github.com/moonrockz/mediator/actions/workflows/ci.yml)
+
 **In-process mediator for MoonBit** with codegen-based handler dispatch — no runtime reflection.
 
 Inspired by [Foundatio.Mediator](https://github.com/FoundatioFx/Foundatio.Mediator). Handlers are plain functions discovered at **build time** by the `mediator gen` CLI; the generated code provides a type-safe `Request`/`Response` enum and a `dispatch` function.
@@ -97,3 +99,8 @@ moon install moonrockz/mediator/src/cmd/main
 - `mediator version` — print version
 
 Handler convention: function name `handle_<MessageTypeName>` with a single parameter of that type and return type `Result[T]`. The scanner uses `moonbitlang/parser` to find these functions.
+
+## CI and release
+
+- **CI** (push/PR to `main`): format check, `moon check`, `moon test` (wasm-gc and js).
+- **Release**: Triggered by pushing a tag `v*` or via workflow_dispatch. Runs validate, publishes to [mooncakes.io](https://mooncakes.io) (requires `MOONCAKES_USER_TOKEN` repo secret), then creates a GitHub Release. Use conventional commits and `mise run release:version` to compute the next tag.

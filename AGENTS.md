@@ -99,6 +99,9 @@ Tasks are **file-based** in `mise-tasks/`. Use `mise run <task>`. A script named
 | `gen:with_middleware` | Generate mediator_gen.mbt for with_middleware example |
 | `examples:minimal`    | Gen + build + run minimal example             |
 | `examples:with_middleware` | Gen + build + run with_middleware example |
+| `release:credentials` | Set up mooncakes.io credentials (CI; needs MOONCAKES_USER_TOKEN) |
+| `release:publish`     | Publish package to mooncakes.io              |
+| `release:version`     | Compute next version from conventional commits (git cliff) |
 
 ## Tooling
 
