@@ -1,10 +1,7 @@
 ///|
-/// Placeholder for request type. Generated code defines the actual Request enum
-/// that wraps all message types (e.g. Request = GetUser(GetUser) | CreateOrder(CreateOrder) | ...).
-/// The pipeline and Mediator are generic over the request and response enums.
-///
-/// This module documents the contract: generated code must provide
-/// - type Request (enum of all request variants)
-/// - type Response (enum of all response variants)
-/// - fn dispatch(Request) -> Response
-/// so that Mediator can run the pipeline and call dispatch.
+/// Contract for generated code. Your project does not implement types here; the
+/// `mediator gen` CLI produces a file that defines:
+/// - **Request** — enum wrapping all message types (e.g. GetUser(GetUser) | CreateOrder(CreateOrder) | ...)
+/// - **Response** — enum of response wrappers (e.g. UserResult(UserResult) | OrderResult(OrderResult) | ...)
+/// - **dispatch** — fn(Request) -> Response
+/// Mediator and the pipeline are generic over these; pass the generated dispatch to Mediator::new.

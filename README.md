@@ -6,7 +6,49 @@
 
 Inspired by [Foundatio.Mediator](https://github.com/FoundatioFx/Foundatio.Mediator). Handlers are plain functions discovered at **build time** by the `mediator gen` CLI; the generated code provides a type-safe `Request`/`Response` enum and a `dispatch` function.
 
-## Quick Start
+## Getting started (soup to nuts)
+
+1. **Prerequisites** — MoonBit toolchain and the mediator CLI:
+   ```bash
+   moon install moonrockz/mediator/src/cmd/main
+   ```
+
+2. **Create a project and add the dependency**:
+   ```bash
+   moon add moonrockz/mediator
+   ```
+   In your package `moon.pkg`, add: `import { "moonrockz/mediator/core" }`.
+
+3. **Define message types and handlers** — One or more request structs and a handler per message. Handler convention: function name `handle_<MessageTypeName>`, single parameter of that type, return type `@core.Result[T]`:
+   ```moonbit
+   pub struct GetUser { id : Int }
+   pub fn handle_GetUser(req : GetUser) -> @core.Result[User] {
+     @core.ok(User::{ id: req.id, name: "Alice" })
+   }
+   ```
+
+4. **Generate dispatch code** — Run the CLI (e.g. in a pre-build step or manually):
+   ```bash
+   mediator gen -d src -o src/mediator_gen.mbt
+   ```
+   The generated file defines `Request`, `Response`, and `dispatch(req : Request) -> Response`. Add the generated file to your package so it compiles with your handlers.
+
+5. **Wire the mediator and send requests** — Build a `Mediator` with the generated `dispatch`, then call `send`:
+   ```moonbit
+   let mediator = @core.Mediator::new(dispatch)
+   let res = mediator.send(Request::GetUser(GetUser::{ id: 1 }))
+   match res {
+     UserResult(wrap) => match wrap.value {
+       @core.Result::Ok(u) => println(u.name)
+       _ => ()
+     }
+     _ => ()
+   }
+   ```
+
+6. **Run** — `moon run src/main.mbt` (or your entry). Optional: add middleware with `with_middleware` (see Middleware below).
+
+## Quick Start (condensed)
 
 ### Add dependency
 

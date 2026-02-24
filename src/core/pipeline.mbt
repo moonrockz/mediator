@@ -2,8 +2,8 @@
 /// Context passed through the middleware pipeline.
 /// Middleware can extend or replace context in Before; it is immutable by convention.
 pub struct PipelineContext[Req, Res] {
-  pub request : Req
-  pub response : Res?
+  request : Req
+  response : Res?
 } derive(Show, Eq)
 
 ///|
@@ -15,29 +15,32 @@ pub fn[Req, Res] PipelineContext::new(
 
 ///|
 /// Middleware stage: runs before the handler. Returns updated context.
+/// Use [before] to construct; field is private for encapsulation.
 pub struct Before[Req, Res] {
-  pub run : (Req, PipelineContext[Req, Res]) -> PipelineContext[Req, Res]
+  priv run : (Req, PipelineContext[Req, Res]) -> PipelineContext[Req, Res]
 }
 
 ///|
 /// Middleware stage: runs after the handler. Receives request, response, and context.
+/// Use [after] to construct; field is private for encapsulation.
 pub struct After[Req, Res] {
-  pub run : (Req, Res, PipelineContext[Req, Res]) -> Unit
+  priv run : (Req, Res, PipelineContext[Req, Res]) -> Unit
 }
 
 ///|
 /// Middleware stage: runs when the pipeline exits (success or failure).
-/// Receives request, context, and optional error message.
+/// Receives request, context, and optional error message. Use [finally] to construct.
 pub struct Finally[Req, Res] {
-  pub run : (Req, PipelineContext[Req, Res], String?) -> Unit
+  priv run : (Req, PipelineContext[Req, Res], String?) -> Unit
 }
 
 ///|
 /// Combined middleware: optional Before, After, and Finally.
+/// Use [middleware] to construct; fields are private for encapsulation.
 pub struct Middleware[Req, Res] {
-  pub before : Before[Req, Res]?
-  pub after : After[Req, Res]?
-  pub run_finally : Finally[Req, Res]?
+  priv before : Before[Req, Res]?
+  priv after : After[Req, Res]?
+  priv run_finally : Finally[Req, Res]?
 }
 
 ///|
