@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+#MISE description="Generate mediator_gen.mbt for the minimal example"
+set -euo pipefail
+REPO_ROOT=$(cd "$(dirname "$0")/../.." && pwd)
+cd "$REPO_ROOT"
+moon run moonrockz/mediator/cmd/main -- gen -d examples/minimal/src -o examples/minimal/src/mediator_gen.mbt

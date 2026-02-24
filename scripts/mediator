@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Shim for the mediator CLI used by example pre-builds in this repo.
+# Users would install the real CLI (moon install moonrockz/mediator/src/cmd/main) and use that.
+set -euo pipefail
+REPO_ROOT=$(cd "$(dirname "$0")/.." && pwd)
+cd "$REPO_ROOT"
+exec moon run src/cmd/main -- "$@"

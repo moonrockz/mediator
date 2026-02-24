@@ -1,0 +1,18 @@
+import {
+  "moonrockz/mediator/codegen",
+  "TheWaWaR/clap",
+  "moonbitlang/x/fs",
+  "moonbitlang/core/env",
+  "moonbitlang/core/json",
+}
+
+options(
+  "is-main": true,
+  "pre-build": [
+    {
+      "command": ":embed -i $input -o $output --text --name moon_mod_json",
+      "input": "../../../moon.mod.json",
+      "output": "moon_mod_resource.mbt",
+    },
+  ],
+)

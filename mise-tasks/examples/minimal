@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+#MISE description="Generate, build, and run the minimal example"
+set -euo pipefail
+REPO_ROOT=$(cd "$(dirname "$0")/../.." && pwd)
+cd "$REPO_ROOT"
+mise run gen:minimal
+cd examples/minimal && moon run src/main.mbt

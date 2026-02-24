@@ -1,0 +1,16 @@
+{
+  "name": "moonrockz/mediator",
+  "version": "0.1.0",
+  "deps": {
+    "moonbitlang/x": "0.4.40",
+    "moonbitlang/async": "0.16.6",
+    "moonbitlang/parser": "0.1.16",
+    "TheWaWaR/clap": "0.2.6"
+  },
+  "readme": "README.md",
+  "repository": "https://github.com/moonrockz/mediator",
+  "license": "Apache-2.0",
+  "keywords": ["mediator", "cqrs", "messaging", "moonbit"],
+  "description": "In-process mediator for MoonBit with codegen-based handler dispatch",
+  "source": "src"
+}

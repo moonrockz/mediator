@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+#MISE description="Generate, build, and run the with_middleware example"
+set -euo pipefail
+REPO_ROOT=$(cd "$(dirname "$0")/../.." && pwd)
+cd "$REPO_ROOT"
+mise run gen:with_middleware
+cd examples/with_middleware && moon run src/main.mbt

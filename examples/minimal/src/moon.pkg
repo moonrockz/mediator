@@ -1,0 +1,14 @@
+import {
+  "moonrockz/mediator/core",
+}
+
+options(
+  "is-main": true,
+  "pre-build": [
+    {
+      "input": ".",
+      "output": "mediator_gen.mbt",
+      "command": "../../scripts/mediator gen -d src -o src/mediator_gen.mbt",
+    },
+  ]
+)

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#MISE description="Run all mediator codegen tasks (all examples)"
+#MISE depends=["gen:minimal", "gen:with_middleware"]
+set -euo pipefail
+echo "All codegen tasks completed."
