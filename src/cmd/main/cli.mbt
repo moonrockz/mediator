@@ -1,24 +1,25 @@
 ///|
-fn build_parser() -> @clap.Parser {
-  let gen = @clap.SubCommand::new(
-    args={
-      "dir": @clap.Arg::named(
+fn build_parser() -> @argparse.Command {
+  let gen = @argparse.Command(
+    "gen",
+    options=[
+      @argparse.OptionArg(
+        "dir",
         short='d',
-        nargs=AtMost(1),
-        help="Directory to scan for handler definitions",
+        about="Directory to scan for handler definitions",
       ),
-      "output": @clap.Arg::named(
+      @argparse.OptionArg(
+        "output",
         short='o',
-        nargs=AtMost(1),
-        help="Output file path for generated code",
+        about="Output file path for generated code",
       ),
-    },
-    help="Generate Request/Response enums and dispatch from handlers",
+    ],
+    about="Generate Request/Response enums and dispatch from handlers",
   )
-  let version = @clap.SubCommand::new(help="Print version information")
-  @clap.Parser::new(
-    prog="mediator",
-    description="In-process mediator for MoonBit with codegen-based handler dispatch",
-    subcmds={ "gen": gen, "version": version },
+  let version = @argparse.Command("version", about="Print version information")
+  @argparse.Command(
+    "mediator",
+    about="In-process mediator for MoonBit with codegen-based handler dispatch",
+    subcommands=[gen, version],
   )
 }

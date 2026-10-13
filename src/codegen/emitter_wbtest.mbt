@@ -1,6 +1,6 @@
 ///|
 test "emit_dispatch empty produces placeholder" {
-  let result = { handlers: [] }
+  let result = { handlers: [], }
   let out = emit_dispatch(result)
   assert_true(out.contains("No handlers found"))
 }
@@ -15,7 +15,7 @@ test "emit_dispatch one handler produces Request Response dispatch" {
     line: 1,
     is_async: false,
   }
-  let result = { handlers: [info] }
+  let result = { handlers: [info], }
   let out = emit_dispatch(result)
   assert_true(out.contains("pub enum Request"))
   assert_true(out.contains("GetUser(GetUser)"))

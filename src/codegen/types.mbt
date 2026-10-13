@@ -5,7 +5,7 @@ pub struct HandlerInfo {
   response_type : String
   fn_name : String
   source_file : String
-  line : Int
+  line : Int32
   is_async : Bool
 } derive(Show, Eq)
 

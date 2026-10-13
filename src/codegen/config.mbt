@@ -7,5 +7,5 @@ pub struct CodegenConfig {
 
 ///|
 pub fn CodegenConfig::default() -> CodegenConfig {
-  { output_path: "mediator_gen.mbt", package_prefix: "" }
+  { output_path: "mediator_gen.mbt", package_prefix: "", }
 }

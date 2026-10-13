@@ -10,7 +10,7 @@ pub struct PipelineContext[Req, Res] {
 pub fn[Req, Res] PipelineContext::new(
   request : Req,
 ) -> PipelineContext[Req, Res] {
-  { request, response: None }
+  { request, response: None, }
 }
 
 ///|
@@ -71,7 +71,7 @@ pub fn[Req, Res] middleware(
   after : After[Req, Res]?,
   run_finally : Finally[Req, Res]?,
 ) -> Middleware[Req, Res] {
-  { before, after, run_finally }
+  { before, after, run_finally, }
 }
 
 ///|
@@ -85,7 +85,7 @@ pub fn[Req, Res] run_pipeline(
   let ctx = PipelineContext::new(request)
   let ctx_after_before = run_before_chain(request, ctx, middleware)
   let res = dispatch_fn(request)
-  let ctx_with_response = { ..ctx_after_before, response: Some(res) }
+  let ctx_with_response = { ..ctx_after_before, response: Some(res), }
   run_after_chain(request, res, ctx_with_response, middleware)
   run_finally_chain(request, ctx_after_before, None, middleware)
   res

@@ -11,7 +11,7 @@ pub struct Mediator[Req, Res] {
 pub fn[Req, Res] Mediator::new(
   dispatch_fn : (Req) -> Res,
 ) -> Mediator[Req, Res] {
-  { dispatch_fn, middleware: [] }
+  { dispatch_fn, middleware: [], }
 }
 
 ///|

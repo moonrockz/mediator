@@ -1,15 +1,17 @@
 ///|
 /// Mediator CLI: codegen and version.
 fn get_version() -> String {
-  let json = @json.parse(moon_mod_json) catch { _ => return "unknown" }
-  match json {
-    Object(obj) =>
-      match obj.get("version") {
-        Some(String(v)) => v
-        _ => "unknown"
-      }
-    _ => "unknown"
+  for line in moon_mod.split("\n") {
+    match line.trim().strip_prefix("version") {
+      Some(rest) =>
+        match rest.trim().strip_prefix("=") {
+          Some(value) => return value.trim().trim(chars="\"").to_owned()
+          None => ()
+        }
+      None => ()
+    }
   }
+  "unknown"
 }
 
 ///|
@@ -17,34 +19,20 @@ fn main {
   let parser = build_parser()
   let args = @env.args()
   let cli_args : Array[String] = if args.length() > 1 {
-    args[1:].to_array()
+    args[1:].to_owned()
   } else {
     []
   }
-  let value = @clap.SimpleValue::new(parser.prog)
-  let help_message = parser.parse(value, cli_args[:]) catch {
+  let matches = parser.parse(argv=cli_args) catch {
     err => {
-      println("Error: " + err.to_string())
+      println(err.to_string())
       return
     }
   }
-  match help_message {
-    Some(msg) => {
-      println(msg)
-      return
-    }
-    None => ()
-  }
-  match value.subcmd {
-    Some(subcmd) =>
-      match subcmd.name {
-        "version" => cmd_version()
-        "gen" => cmd_gen(subcmd)
-        _ => ()
-      }
-    None => {
-      let help = parser.gen_help_message(["mediator"], {})
-      println(help)
-    }
+  match matches.subcommand {
+    Some(("version", _)) => cmd_version()
+    Some(("gen", sub)) => cmd_gen(sub)
+    Some(_) => ()
+    None => println(parser.render_help())
   }
 }
