@@ -7,7 +7,7 @@ pub fn generate(scan_dir : String) -> String {
 
 ///|
 fn scan_directory(dir : String) -> ScanResult {
-  let entries = @fs.read_dir(dir) catch { _ => return { handlers: [] } }
+  let entries = @fs.read_dir(dir) catch { _ => return { handlers: [], } }
   let all_handlers : Array[HandlerInfo] = []
   for entry in entries {
     let path = dir + "/" + entry
@@ -27,5 +27,5 @@ fn scan_directory(dir : String) -> ScanResult {
       }
     }
   }
-  { handlers: all_handlers }
+  { handlers: all_handlers, }
 }

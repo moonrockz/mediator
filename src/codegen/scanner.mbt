@@ -128,7 +128,7 @@ fn string_starts_with(s : String, prefix : String) -> Bool {
 }
 
 ///|
-fn string_substring_from(s : String, start : Int) -> String {
+fn string_substring_from(s : String, start : Int32) -> String {
   let buf = StringBuilder::new()
   for i = start; i < s.length(); i = i + 1 {
     buf.write_char(s[i].to_int().unsafe_to_char())

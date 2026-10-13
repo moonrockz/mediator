@@ -1,15 +1,15 @@
 ///|
 test "run_pipeline no middleware" {
-  let dispatch_fn = fn(x : Int) { x + 1 }
+  let dispatch_fn = fn(x : Int32) { x + 1 }
   let res = run_pipeline(10, dispatch_fn, [])
   assert_eq(res, 11)
 }
 
 ///|
 test "run_pipeline with before middleware" {
-  let dispatch_fn = fn(x : Int) { x + 1 }
+  let dispatch_fn = fn(x : Int32) { x + 1 }
   let mw = middleware(
-    Some(before(fn(req, ctx) { { ..ctx, response: Some(-1) } })),
+    Some(before(fn(req, ctx) { { ..ctx, response: Some(-1), } })),
     None,
     None,
   )
@@ -21,7 +21,7 @@ test "run_pipeline with before middleware" {
 test "run_pipeline with after and finally" {
   let mut after_ran = false
   let mut finally_ran = false
-  let dispatch_fn = fn(x : Int) { x }
+  let dispatch_fn = fn(x : Int32) { x }
   let mw = middleware(
     None,
     Some(after(fn(_req, _res, _ctx) { after_ran = true })),
